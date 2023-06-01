@@ -96,13 +96,21 @@
     .options input[type="radio"]:checked {
       background-color: #f4a261;
     }
+
+    .instructions {
+      text-align: left;
+    }
+    .instructions strong {
+      font-weight: bold;
+    }
+
   </style>
   </head>
   
   <body>
     <div class="container">
       <h2>簡式臺灣主觀幸福感量表</h2>
-      <p>填答說明: 請您針對下列每一題所描述的問題內容，根據日常生活中所感知道的自己狀況，從選項中勾選一項最能夠說明您現狀的選項。</p>
+      <p class="instructions" id="answer-instructions"><strong>填答說明:</strong> 請您針對下列每一題所描述的問題內容，根據日常生活中所感知道的自己狀況，從選項中勾選一項最能夠說明您現狀的選項。</p>
       <form id="happiness-form">
         <div class="question">
           <span>1. 我對自己的看法很有信心，即使他與一般輿論相反。</span>
@@ -455,14 +463,19 @@
               <span>非常同意</span>
             </div>
           </div>
-    
-      <!-- Repeat the above code block for other questions -->
 
       <div class="btn-container">
-        <button type="submit" class="submit-btn">提交</button>
+        <button type="submit" class="submit-btn"  id="submit-btn">提交</button>
       </div>
     </form>
-    <div id="result" class="result"></div>
+    <div id="result" class="result" style="display: none;">
+      <!-- 顯示提交結果的區域 -->
+      <div class="btn-container">
+        <button id="retryButton" class="submit-btn">重新作答</button>
+        <button id="goBackButton" class="submit-btn">回到上一頁</button>
+      </div>
+    </div>
+
   </div>
 
   <script>
@@ -495,14 +508,56 @@
       let interpretation = '';
       if (score >= 15 && score < 41) {
         interpretation = '屬於擁有「低主觀幸福感程度」';
+        resultDiv.style.fontSize = '24px';
+        resultDiv.style.color = 'red';
       } else if (score >= 41 && score < 48) {
         interpretation = '屬於擁有「中主觀幸福感程度」';
+        resultDiv.style.fontSize = '24px';
+        resultDiv.style.color = 'blue';
       } else if (score >= 48 && score <= 60) {
         interpretation = '屬於擁有「高主觀幸福感程度」';
+        resultDiv.style.fontSize = '24px';
+        resultDiv.style.color = 'green';
       }
 
       resultDiv.textContent = '總分: ' + score + '，' + interpretation;
     });
+
+  document.addEventListener('DOMContentLoaded', function() {
+    var form = document.querySelector('#happiness-form');
+    var resultContainer = document.querySelector('#result');
+    var answerInstructions = document.querySelector('#answer-instructions');
+    form.addEventListener('submit', function(event) {
+      event.preventDefault();
+      
+      var unansweredQuestions = [];
+      
+      // 檢查每個問題是否有回答
+      for (var i = 1; i <= 15; i++) {
+        var question = document.querySelector('input[name=q' + i + ']:checked');
+        
+        if (!question) {
+          unansweredQuestions.push(i);
+        }
+      }
+      
+      // 如果有未回答的問題，顯示它們
+      if (unansweredQuestions.length > 0) {
+        var errorMessage = '以下題目未回答：\n';
+        for (var j = 0; j < unansweredQuestions.length; j++) {
+          errorMessage += '第 ' + unansweredQuestions[j] + ' 題\n';
+        }
+        alert(errorMessage);
+      } else {
+        // 隱藏表單，顯示結果區域
+        form.style.display = 'none';
+        answerInstructions.style.display = 'none';
+        resultContainer.style.display = 'block';
+        // 顯示提交成功訊息
+        alert('表單提交成功！');
+      }
+    });
+  });
   </script>
 </body>
 </html>
