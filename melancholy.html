@@ -1,0 +1,377 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>憂鬱情緒評估表單</title>
+  <style>
+    body {
+      background-color: #333;
+      color: #fff;
+      font-family: Arial, sans-serif;
+    }
+
+    h1 {
+      text-align: center;
+    }
+
+    #question{
+      text-align: left;
+    }
+
+    #form-container {
+      margin: 20px auto;
+      width: 500px;
+      background-color: #666;
+      padding: 20px;
+      border-radius: 5px;
+      text-align: center;
+    }
+
+    label {
+      display: block;
+      margin-bottom: 10px;
+      text-align: left;
+    }
+
+    .question input[type="radio"] {
+    transform: scale(1.5);
+    margin-right: 10px;
+  }
+
+  .question input[type="radio"]:checked {
+    background-color: gray;
+  }
+
+
+
+
+    #submit-btn {
+      display: block;
+      margin-top: 20px;
+    }
+
+    #result-container {
+      display: none;
+      text-align: center;
+      margin-top: 20px;
+      background-color: #999;
+      padding: 10px;
+      border-radius: 5px;
+    }
+    .center {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  .question {
+    text-align: left;
+  }
+
+  .question .options {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    
+  }
+
+  .rounded-button {
+    border: none;
+    border-radius: 20px;
+    padding: 10px 20px;
+    background-color: #ccc;
+    cursor: pointer;
+  }
+
+  </style>
+</head>
+<body>
+  <h1>憂鬱情緒評估</h1>
+
+  <div id="form-container">
+    <form id="depression-form" onsubmit="return validateForm()">
+      <div class="question">
+        <p>1. 在過去一週，我感到沮喪或情緒低落的頻率：</p>
+        <div class="options">
+          <input type="radio" name="q1" value="0"> 從不如此
+          <input type="radio" name="q1" value="1"> 偶爾如此
+          <input type="radio" name="q1" value="2"> 經常如此
+          <input type="radio" name="q1" value="3"> 總是如此
+        </div>
+      </div>
+      <div class="question">
+        <p>2. 對什麼事都失去興趣：</p>
+        <div class="options">
+          <input type="radio" name="q2" value="0"> 從不如此
+          <input type="radio" name="q2" value="1"> 偶爾如此
+          <input type="radio" name="q2" value="2"> 經常如此
+          <input type="radio" name="q2" value="3"> 總是如此
+        </div>
+      </div>
+      <div class="question">
+        <p>3. 凡事往壞的方向想：</p>
+        <div class="options">
+          <input type="radio" name="q3" value="0"> 從不如此
+          <input type="radio" name="q3" value="1"> 偶爾如此
+          <input type="radio" name="q3" value="2"> 經常如此
+          <input type="radio" name="q3" value="3"> 總是如此
+        </div>
+      </div>
+      <div class="question">
+        <p>4.有罪惡感。</p>
+        <div class="options">
+        <input type="radio" name="q4" value="0"> 從不如此
+        <input type="radio" name="q4" value="1"> 偶爾如此
+        <input type="radio" name="q4" value="2"> 經常如此
+        <input type="radio" name="q4" value="3"> 總是如此
+        </div>
+      </div>
+      <div class="question">
+        <p>5. 感覺自己很沒用：</p>
+        <div class="options">
+        <input type="radio" name="q5" value="0"> 從不如此
+        <input type="radio" name="q5" value="1"> 偶爾如此
+        <input type="radio" name="q5" value="2"> 經常如此
+        <input type="radio" name="q5" value="3"> 總是如此
+        </div>
+      </div>
+      <div class="question">
+        <p>6. 無力感：</p>
+        <div class="options">
+        <input type="radio" name="q6" value="0"> 從不如此
+        <input type="radio" name="q6" value="1"> 偶爾如此
+        <input type="radio" name="q6" value="2"> 經常如此
+        <input type="radio" name="q6" value="3"> 總是如此
+        </div>
+      </div>
+      <div class="question">
+        <p>7. 有壓力：</p>
+        <div class="options">
+        <input type="radio" name="q7" value="0"> 從不如此
+        <input type="radio" name="q7" value="1"> 偶爾如此
+        <input type="radio" name="q7" value="2"> 經常如此
+        <input type="radio" name="q7" value="3"> 總是如此
+        </div>
+      </div>
+      <div class="question">
+        <p>8. 發脾氣、生氣：</p>
+        <div class="options">
+        <input type="radio" name="q8" value="0"> 從不如此
+        <input type="radio" name="q8" value="1"> 偶爾如此
+        <input type="radio" name="q8" value="2"> 經常如此
+        <input type="radio" name="q8" value="3"> 總是如此
+        </div>
+      </div>
+      <div class="question">
+        <p>9. 擔心、煩惱：</p>
+        <div class="options">
+        <input type="radio" name="q9" value="0"> 從不如此
+        <input type="radio" name="q9" value="1"> 偶爾如此
+        <input type="radio" name="q9" value="2"> 經常如此
+        <input type="radio" name="q9" value="3"> 總是如此
+        </div>
+      </div>
+      <div class="question">
+        <p>10. 害怕、恐懼：</p>
+        <div class="options">
+        <input type="radio" name="q10" value="0"> 從不如此
+        <input type="radio" name="q10" value="1"> 偶爾如此
+        <input type="radio" name="q10" value="2"> 經常如此
+        <input type="radio" name="q10" value="3"> 總是如此
+        </div>
+      </div>
+      <div class="question">
+        <p>11. 想哭：</p>
+        <div class="options">
+        <input type="radio" name="q11" value="0"> 從不如此
+        <input type="radio" name="q11" value="1"> 偶爾如此
+        <input type="radio" name="q11" value="2"> 經常如此
+        <input type="radio" name="q11" value="3"> 總是如此
+        </div>
+      </div>
+      <div class="question">
+        <p>12. 心情低落：</p>
+        <div class="options">
+        <input type="radio" name="q12" value="0"> 從不如此
+        <input type="radio" name="q12" value="1"> 偶爾如此
+        <input type="radio" name="q12" value="2"> 經常如此
+        <input type="radio" name="q12" value="3"> 總是如此
+        </div>
+      </div>
+      <div class="question">
+        <p>13. 胃口不好(或暴飲暴食)：</p>
+        <div class="options">
+        <input type="radio" name="q13" value="0"> 從不如此
+        <input type="radio" name="q13" value="1"> 偶爾如此
+        <input type="radio" name="q13" value="2"> 經常如此
+        <input type="radio" name="q13" value="3"> 總是如此
+        </div>
+      </div>
+      <div class="question">
+        <p>14.睡眠狀況不佳 ：</p>
+        <div class="options">
+        <input type="radio" name="q14" value="0"> 從不如此
+        <input type="radio" name="q14" value="1"> 偶爾如此
+        <input type="radio" name="q14" value="2"> 經常如此
+        <input type="radio" name="q14" value="3"> 總是如此
+        </div>
+      </div>
+      <div class="question">
+        <p>15. 身體疲憊：</p>
+        <div class="options">
+        <input type="radio" name="q15" value="0"> 從不如此
+        <input type="radio" name="q15" value="1"> 偶爾如此
+        <input type="radio" name="q15" value="2"> 經常如此
+        <input type="radio" name="q15" value="3"> 總是如此
+        </div>
+      </div>
+      <div class="question">
+        <p>16. 無法專心做事：</p>
+        <div class="options">
+        <input type="radio" name="q16" value="0"> 從不如此
+        <input type="radio" name="q16" value="1"> 偶爾如此
+        <input type="radio" name="q16" value="2"> 經常如此
+        <input type="radio" name="q16" value="3"> 總是如此
+        </div>
+      </div>
+      <div class="question">
+        <p>17. 身體不舒服：</p>
+        <div class="options">
+        <input type="radio" name="q17" value="0"> 從不如此
+        <input type="radio" name="q17" value="1"> 偶爾如此
+        <input type="radio" name="q17" value="2"> 經常如此
+        <input type="radio" name="q17" value="3"> 總是如此
+        </div>
+      </div>
+      <div class="question">
+        <p>18. 記憶力不好：</p>
+        <div class="options">
+        <input type="radio" name="q18" value="0"> 從不如此
+        <input type="radio" name="q18" value="1"> 偶爾如此
+        <input type="radio" name="q18" value="2"> 經常如此
+        <input type="radio" name="q18" value="3"> 總是如此
+        </div>
+      </div>
+      <div class="question">
+        <p>19. 不想與他人往來：</p>
+        <div class="options">
+        <input type="radio" name="q19" value="0"> 從不如此
+        <input type="radio" name="q19" value="1"> 偶爾如此
+        <input type="radio" name="q19" value="2"> 經常如此
+        <input type="radio" name="q19" value="3"> 總是如此
+        </div>
+      </div>
+      <div class="question">
+        <p>20.少說話(或不愛說話)：</p>
+        <div class="options">
+        <input type="radio" name="q20" value="0"> 從不如此
+        <input type="radio" name="q20" value="1"> 偶爾如此
+        <input type="radio" name="q20" value="2"> 經常如此
+        <input type="radio" name="q20" value="3"> 總是如此
+        </div>
+      </div>
+      <div class="question">
+        <p>21. 不想出門：</p>
+        <div class="options">
+        <input type="radio" name="q21" value="0"> 從不如此
+        <input type="radio" name="q21" value="1"> 偶爾如此
+        <input type="radio" name="q21" value="2"> 經常如此
+        <input type="radio" name="q21" value="3"> 總是如此
+        </div>
+      </div>
+      <div class="question">
+        <p>22. 生活圈小：</p>
+        <div class="options">
+        <input type="radio" name="q22" value="0"> 從不如此
+        <input type="radio" name="q22" value="1"> 偶爾如此
+        <input type="radio" name="q22" value="2"> 經常如此
+        <input type="radio" name="q22" value="3"> 總是如此
+        </div>
+      </div>
+
+      <div class="center">
+        <input id="submit-btn" class="rounded-button" type="submit" value="提交">
+      </div>
+    </form>
+  </div>
+
+  <div id="result-container">
+    <h2>評分結果</h2>
+    <p id="score"></p>
+    <p id="incomplete-questions"></p>
+  </div>
+
+  <script>
+function validateForm() {
+  var unansweredQuestions = [];
+
+  // 檢查每個題目是否有選擇答案
+  var questions = document.getElementsByClassName('question');
+  for (var i = 0; i < questions.length; i++) {
+    var options = questions[i].querySelectorAll('input[type="radio"]');
+    var answered = false;
+
+    // 檢查選項是否有被選擇
+    for (var j = 0; j < options.length; j++) {
+      if (options[j].checked) {
+        answered = true;
+        break;
+      }
+    }
+
+    // 如果沒有答案，將題目編號儲存到 unansweredQuestions 陣列中
+    if (!answered) {
+      unansweredQuestions.push(i + 1);
+    }
+  }
+
+  // 檢查是否有未回答的題目
+  if (unansweredQuestions.length > 0) {
+    var errorMessage = '以下題目未完成： ';
+    for (var k = 0; k < unansweredQuestions.length; k++) {
+      errorMessage += unansweredQuestions[k] + ', ';
+    }
+    errorMessage = errorMessage.slice(0, -2); // 移除最後的逗號和空格
+    alert(errorMessage);
+    return false; // 阻止表單提交
+  }
+
+  // 所有題目都已回答，顯示分數
+  var score = calculateScore();
+  var interpretation = interpretScore(score);
+  alert('你的分數是：' + score + '\n\n' + interpretation);
+  return true;
+}
+
+function calculateScore() {
+  var score = 0;
+
+  // 計算每個題目的得分並相加
+  var questions = document.getElementsByClassName('question');
+  for (var i = 0; i < questions.length; i++) {
+    var options = questions[i].querySelectorAll('input[type="radio"]');
+    for (var j = 0; j < options.length; j++) {
+      if (options[j].checked) {
+        score += parseInt(options[j].value);
+        break;
+      }
+    }
+  }
+
+  return score;
+}
+
+function interpretScore(score) {
+  if (score >= 0 && score < 21) {
+    return '你的憂鬱情緒程度為「正常，輕度憂鬱情緒」。';
+  } else if (score >= 21 && score < 37) {
+    return '你的憂鬱情緒程度為「中度憂鬱情緒」。';
+  } else if (score >= 37 && score < 53) {
+    return '你的憂鬱情緒程度為「高度憂鬱情緒」。';
+  } else if (score >= 53 && score <= 66) {
+    return '你的憂鬱情緒程度為「嚴重憂鬱情緒」。建議尋求專業醫師複診。';
+  } else {
+    return '計算分數時出現錯誤。';
+  }
+}
+  </script>
+</body>
+</html>
